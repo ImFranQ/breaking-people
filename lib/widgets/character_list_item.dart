@@ -1,45 +1,5 @@
-import '../models/character.dart';
-import '../services/character_service.dart';
+import 'package:breaking_people/models/character.dart';
 import 'package:flutter/material.dart';
-
-class CharactersList extends StatefulWidget{
-  const CharactersList({Key? key}) : super(key: key);
-
-  @override
-  _CharactersListState createState() => _CharactersListState();
-}
-
-
-class _CharactersListState extends State<CharactersList> {
-  late Future<List<Character>> futureCharacters;
-  
-  @override
-  void initState() {
-    super.initState();
-    futureCharacters = CharacterService().getlAllCharacters();
-  }
-    
-  @override
-  Widget build(BuildContext context) {
-    return Scrollbar(
-      child: FutureBuilder<List<Character>>(
-        future: futureCharacters,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
-              children: snapshot.data!.map<Widget>((data) => CharactersListItem(data)).toList(),
-            );
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
-    );
-  }
-}
 
 class CharactersListItem extends StatefulWidget {
 

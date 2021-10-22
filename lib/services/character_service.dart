@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert' show jsonDecode;
 import '../models/character.dart';
 import 'package:http/http.dart' as http;
 

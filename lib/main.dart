@@ -1,5 +1,5 @@
 
-import 'package:breaking_people/widgets/character_widgets.dart';
+import 'package:breaking_people/widgets/character_list.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -16,7 +16,10 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(title: const Text('Breaking Bad Characters')),
-        body: const CharactersList(),
+        body: const Padding(
+          padding: EdgeInsets.only(left: 10.0, right: 1.0),
+          child: CharactersList(),
+        ),
       ),
     );
   }
