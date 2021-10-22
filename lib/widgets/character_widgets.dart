@@ -72,7 +72,7 @@ class _CharactersListItemState extends State<CharactersListItem> {
         Text(widget.data.name),
       ]),
       subtitle: Text(widget.data.portrayed),
-      trailing: Text(widget.data.status),
+      trailing: Chip(label: Text(widget.data.status)),
     );
 
     var tileFooter = Row(
