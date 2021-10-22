@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CharacterSearch extends StatefulWidget {
 
-  Function(String) onChanged;
+  final Function(String) onChanged;
   
-  CharacterSearch(this.onChanged, {Key? key}) : super(key: key);
+  const CharacterSearch(this.onChanged, {Key? key}) : super(key: key);
 
   @override
   State<CharacterSearch> createState() => _CharacterSearchState();

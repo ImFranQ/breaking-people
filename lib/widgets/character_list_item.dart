@@ -1,4 +1,5 @@
 import 'package:breaking_people/models/character.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CharactersListItem extends StatefulWidget {
@@ -18,6 +19,12 @@ class _CharactersListItemState extends State<CharactersListItem> {
   void toggleFavorite(){
     setState(() {
       isFavorite = !isFavorite;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text((isFavorite ? 'Added' : 'Removed') + ' to favorites.'), 
+          duration: const Duration(seconds: 1),
+        )
+      );
     });
   }
   
