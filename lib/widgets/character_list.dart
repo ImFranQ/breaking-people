@@ -14,13 +14,21 @@ class CharactersList extends StatefulWidget{
 
 class _CharactersListState extends State<CharactersList> {
   late Future<List<Character>> futureCharacters;
-  
+
+  String searchTerm = '';
+
   @override
   void initState() {
     super.initState();
     futureCharacters = CharacterService().getlAllCharacters();
   }
-    
+
+  void onSearch(String value){
+    setState(() {
+      searchTerm = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -30,8 +38,11 @@ class _CharactersListState extends State<CharactersList> {
           if (snapshot.hasData) {
             return ListView(
               children: [
-                const Padding(padding: EdgeInsets.all(10.0), child: CharacterSearch()),
-                ...snapshot.data!.map<Widget>((data) => CharactersListItem(data)).toList()
+                Padding(padding: const EdgeInsets.all(10.0), child: CharacterSearch(onSearch)),
+                ...snapshot.data!
+                  .where((data) => data.name.toLowerCase().contains(searchTerm.toLowerCase()))
+                  .map<Widget>((data) => CharactersListItem(data))
+                  .toList()
               ],
             );
           } else if (snapshot.hasError) {

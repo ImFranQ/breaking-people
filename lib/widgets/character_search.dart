@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CharacterSearch extends StatefulWidget {
-  const CharacterSearch({Key? key}) : super(key: key);
+
+  Function(String) onChanged;
+  
+  CharacterSearch(this.onChanged, {Key? key}) : super(key: key);
 
   @override
   State<CharacterSearch> createState() => _CharacterSearchState();
@@ -30,9 +33,7 @@ class _CharacterSearchState extends State<CharacterSearch>{
         labelText: 'Search character',
         prefixIcon: Icon(Icons.search)
       ),
-      onChanged: (String value){
-
-      },
+      onChanged: widget.onChanged,
     );
   }
 }
