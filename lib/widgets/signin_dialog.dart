@@ -1,8 +1,6 @@
-// import 'package:breaking_people/services/auth_service.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:breaking_people/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 
 class SiginDialog extends StatefulWidget{
@@ -14,11 +12,25 @@ class SiginDialog extends StatefulWidget{
 
 class _SiginDialogState extends State<SiginDialog> {
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-  // late Future<UserCredential> user;
+  GoogleSignInAccount? _currentUser;
+  
+  void siginWithGoogle() {
+    setState(() async {
+      _currentUser = await AuthService().signInWithGoogle();
+    });
+  }
 
-  void siginWithGoogle(){
-    // user = AuthService().signInWithGoogle();
+  @override
+  void initState() {
+    super.initState();
+    
+    AuthService().googleSignIn().onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+
+    AuthService().googleSignIn().signInSilently();
   }
 
   @override
@@ -37,22 +49,13 @@ class _SiginDialogState extends State<SiginDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Center(child: Text('You needs signed to add to favorites')),
-              outlinedButton
+              _currentUser == null ? outlinedButton : Text(_currentUser?.displayName ?? '')
             ]
           )
         ),
       )
     );
 
-    return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) return dialog;
-
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    return dialog;
   }
 }

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1059562082347-3rbfbf1tq0tbgrecvnr3r2oknns6jjqg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.breaking_people",
+            "certificate_hash": "40fa9ed1c0b6d195fe5fc46bc63bc8787e754524"
+          }
+        },
+        {
           "client_id": "1059562082347-lgcgiu4d0onnqq5ui4t6qfottiis9n56.apps.googleusercontent.com",
           "client_type": 3
         }

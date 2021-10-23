@@ -1,7 +1,9 @@
 import 'package:breaking_people/models/character.dart';
+import 'package:breaking_people/services/auth_service.dart';
 import 'package:breaking_people/widgets/signin_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class CharactersListItem extends StatefulWidget {
 
@@ -17,18 +19,21 @@ class _CharactersListItemState extends State<CharactersListItem> {
 
   bool isFavorite = false;
 
-  void signInWithGoogle(){
-    
-  }
+  GoogleSignInAccount? _currentUser;
 
   void toggleFavorite(){
 
-    showDialog(
-      context: context, 
-      builder: (BuildContext context){
-        return const SiginDialog();
-      }
-    );
+    // open sign in dialog if an user is not signed
+    if(_currentUser == null){
+      showDialog(
+        context: context, 
+        builder: (BuildContext context){
+          return const SiginDialog();
+        }
+      );
+      
+      return;
+    }
     
     setState(() {
       isFavorite = !isFavorite;
@@ -39,6 +44,20 @@ class _CharactersListItemState extends State<CharactersListItem> {
         )
       );
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // watch user signed state   
+    AuthService().googleSignIn().onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+
+    AuthService().googleSignIn().signInSilently();
   }
   
   @override
