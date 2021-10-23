@@ -1,4 +1,5 @@
 import 'package:breaking_people/models/character.dart';
+import 'package:breaking_people/widgets/signin_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,19 @@ class _CharactersListItemState extends State<CharactersListItem> {
 
   bool isFavorite = false;
 
+  void signInWithGoogle(){
+    
+  }
+
   void toggleFavorite(){
+
+    showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return const SiginDialog();
+      }
+    );
+    
     setState(() {
       isFavorite = !isFavorite;
       ScaffoldMessenger.of(context).showSnackBar(
